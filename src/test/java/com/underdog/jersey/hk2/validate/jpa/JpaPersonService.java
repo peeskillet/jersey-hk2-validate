@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.underdog.jersey.hk2.validate.jpa;
 
 import com.underdog.jersey.hk2.validate.Validatable;
@@ -12,10 +8,7 @@ import javax.inject.Provider;
 import javax.persistence.EntityManager;
 import javax.validation.Valid;
 
-/**
- *
- * @author PaulSamsotha
- */
+
 public class JpaPersonService implements PersonService, Validatable {
     
     /**
