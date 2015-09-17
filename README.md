@@ -142,7 +142,7 @@ Make sure you have Maven, and Java 8 (this project makes use of `java.util.refle
 
 Get the project
 
-    git clone <project-url>
+    git clone https://github.com/psamsotha/jersey-hk2-validate.git
 
 Build it
 
