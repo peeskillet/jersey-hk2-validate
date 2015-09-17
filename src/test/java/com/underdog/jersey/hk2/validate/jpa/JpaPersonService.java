@@ -2,7 +2,6 @@
 package com.underdog.jersey.hk2.validate.jpa;
 
 import com.underdog.jersey.hk2.validate.Validatable;
-import com.underdog.jersey.hk2.validate.Validated;
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
@@ -20,7 +19,6 @@ public class JpaPersonService implements PersonService, Validatable {
     private Provider<EntityManager> entityManager;
 
     @Override
-    @Validated
     public Person save(@Valid Person person) {
         EntityManager em = entityManager.get();
         em.getTransaction().begin();

@@ -3,8 +3,10 @@ package com.underdog.jersey.hk2.validate;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.util.Collections;
 import java.util.List;
+import javax.validation.Valid;
 import org.aopalliance.intercept.ConstructorInterceptor;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.glassfish.hk2.api.Filter;
@@ -23,8 +25,10 @@ public class ValidationInterceptionService implements InterceptionService {
 
     @Override
     public List<MethodInterceptor> getMethodInterceptors(Method method) {
-        if (method.isAnnotationPresent(Validated.class)) {
-            return METHOD_LIST;
+        for (Parameter parameter: method.getParameters()) {
+            if (parameter.isAnnotationPresent(Valid.class)) {
+                return METHOD_LIST;
+            }
         }
         return null;
     }

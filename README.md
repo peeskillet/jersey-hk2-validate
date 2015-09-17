@@ -89,8 +89,10 @@ of HK2's `InterceptionService`. Here's the implementation
 
         @Override
         public List<MethodInterceptor> getMethodInterceptors(Method method) {
-            if (method.isAnnotationPresent(Validated.class)) {
-                return METHOD_LIST;
+            for (Parameter parameter: method.getParameters()) {
+                if (parameter.isAnnotationPresent(Valid.class)) {
+                    return METHOD_LIST;
+                }
             }
             return null;
         }
@@ -121,17 +123,6 @@ contract of `Validatable` will be intercepted. So two things we need to do is
 
         bind(ServiceImpl.class).to(Service.class).to(Validatable.class).in(Singleton.class);
 
-If you look back at the `ValidationInterceptionService`, you will also see the
-`getMethodInterceptors` method. Here we are telling HK2, that only methods annotated with
-`@Validated` (which is included in this project) should be intercepted. So the implementation
-of the service will finally end up looking like this
-
-        public class SeriviceImpl implements Service, Validatable {
-            
-            @Override
-            @Validated
-            public void Save(@Valid Model model) {}
-        }
 
 ------
 
@@ -161,8 +152,7 @@ To make use of this project, I created a `Feature` implementation in `Validation
 which takes care of registering all components above. What the user should take care of is:
 
 1. Make sure the service they want to bind implements `Validatable`
-2. Make sure the service method is annotated with `Validated`
-3. Make sure the method parameter id annotated with `@Valid`
+2. Make sure the method parameter is annotated with `@Valid`
 
 Then with the `ValidationFeature`, you can register your services classes. There are three
 different APIs you can use to register class. You will first create the `Builder`, which is the only
